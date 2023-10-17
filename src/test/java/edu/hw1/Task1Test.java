@@ -36,7 +36,7 @@ public class Task1Test {
         Throwable thrown = catchThrowable(() -> {
             Task1.minutesToSeconds("3252");
         });
-        assertThat(thrown).hasMessage("Отсутствует знак ':' во времени.");
+        assertThat(thrown).hasMessage("Время должно быть введено в формате mm:ss.");
     }
 
     @Test

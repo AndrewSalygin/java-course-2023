@@ -1,7 +1,6 @@
 package edu.hw1.utils;
 
 public enum ExceptionMessageTask1 {
-    MISSING_SIGN_IN_TIME("Отсутствует знак ':' во времени."),
     TIME_FORMAT_MMSS("Время должно быть введено в формате mm:ss."),
     FAILED_CONVERT_TIME_FORMAT("Неудачная попытка преобразования времени в численный формат.");
 
