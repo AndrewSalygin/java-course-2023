@@ -11,14 +11,15 @@ public final class Task8 {
     private Task8() {
     }
 
-    private static void numberZeroOrOne(int[][] board) {
+    private static boolean isCorrectBoard(int[][] board) {
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 if (board[i][j] != 0 && board[i][j] != 1) {
-                    throw new RuntimeException(ZERO_OR_ONE_IN_BOARD.getMessage());
+                    return false;
                 }
             }
         }
+        return true;
     }
 
     public static boolean knightBoardCapture(int[][] board) {
@@ -31,7 +32,9 @@ public final class Task8 {
             }
         }
 
-        numberZeroOrOne(board);
+        if (!isCorrectBoard(board)) {
+            throw new RuntimeException(ZERO_OR_ONE_IN_BOARD.getMessage());
+        }
 
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {

@@ -8,7 +8,7 @@ public final class Task3 {
     private Task3() {
     }
 
-    public static boolean isNested(int[] innerArray, int[] outerArray) throws RuntimeException {
+    public static boolean isNested(int[] innerArray, int[] outerArray) {
         if (innerArray == null || outerArray == null
             || innerArray.length == 0 || outerArray.length == 0) {
             throw new RuntimeException(BOTH_ARRAYS_NOT_EMPTY.getMessage());

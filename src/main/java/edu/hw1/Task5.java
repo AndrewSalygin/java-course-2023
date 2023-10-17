@@ -13,8 +13,6 @@ public final class Task5 {
             throw new RuntimeException(NUMBER_NOT_NEGATIVE.getMessage());
         }
 
-        boolean isSpecialPalindrom;
-
         String s = String.valueOf(number);
         if (s.length() < 2) {
             throw new RuntimeException(NUMBER_CONSIST_AT_LEAST_TWO_DIGITS.getMessage());
@@ -22,25 +20,25 @@ public final class Task5 {
         StringBuilder newS = new StringBuilder(s);
 
         while (newS.length() > 1) {
-            isSpecialPalindrom = true;
-
-            for (int i = 0, j = newS.length() - 1; i < j; i++, j--) {
-                if (newS.charAt(i) != newS.charAt(j)) {
-                    isSpecialPalindrom = false;
-                    break;
-                }
-            }
-
-            if (isSpecialPalindrom) {
-                return isSpecialPalindrom;
+            if (isPalindrome(newS)) {
+                return true;
             }
 
             for (int i = 1; i < newS.length(); i++) {
-                int leftNumber = Character.getNumericValue(newS.charAt(i - 1));
-                int rightNumber = Character.getNumericValue(newS.charAt(i));
+                int leftNumber = newS.charAt(i - 1) - '0';
+                int rightNumber = newS.charAt(i) - '0';
                 newS.replace(i - 1, i + 1, String.valueOf(leftNumber + rightNumber));
             }
         }
         return false;
+    }
+
+    public static boolean isPalindrome(StringBuilder s) {
+        for (int i = 0, j = s.length() - 1; i < j; i++, j--) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

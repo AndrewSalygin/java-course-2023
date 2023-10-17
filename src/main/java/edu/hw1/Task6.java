@@ -2,7 +2,6 @@ package edu.hw1;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import static edu.hw1.utils.ExceptionMessageTask6.NUMBER_GREATER_1000_N_CONSIST_4_CHAR;
@@ -22,13 +21,14 @@ public final class Task6 {
     private static final int SAVE_ZERO = 999;
     private static final int LOWER_BOUND = 1000;
     private static final int UPPER_BOUND = 10000;
-    private static Set<Integer> exceptionalNumbers = null;
+    private static final Set<Integer> EXCEPTIONAL_NUMBERS =
+        Set.of(1111, 2222, 3333, 4444, 5555, 6666, 7777, 8888, 9999);
 
     private Task6() {
     }
 
     public static int countK(int number) {
-        if (getExceptionalNumbers().contains(number)) {
+        if (EXCEPTIONAL_NUMBERS.contains(number)) {
             throw new RuntimeException(NUMBER_HAS_ALL_SAME_DIGITS.getMessage());
         }
         if (number <= LOWER_BOUND || number >= UPPER_BOUND) {
@@ -36,17 +36,6 @@ public final class Task6 {
         }
 
         return kaprekarRecursive(number, 0);
-    }
-
-    @SuppressWarnings("MagicNumber")
-    private static Set<Integer> getExceptionalNumbers() {
-        if (exceptionalNumbers == null) {
-            exceptionalNumbers = new HashSet<>();
-            for (int i = 1; i < 10; i++) {
-                exceptionalNumbers.add(i * 1111);
-            }
-        }
-        return exceptionalNumbers;
     }
 
     @SuppressWarnings("MagicNumber")

@@ -7,6 +7,9 @@ public final class Task2 {
 
     @SuppressWarnings("MagicNumber")
     public static int countNumberOfDigits(int number) {
+        if (number == Integer.MIN_VALUE) {
+            return 10;
+        }
         int counter = 1;
         int localNumber = Math.abs(number);
         while (localNumber / 10 > 0) {
