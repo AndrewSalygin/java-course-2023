@@ -14,6 +14,6 @@ public final class Task4 {
         if (s.length() % 2 == 1) {
             resultString.append(s.charAt(s.length() - 1));
         }
-        return String.valueOf(resultString);
+        return resultString.toString();
     }
 }

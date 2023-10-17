@@ -11,16 +11,17 @@ public final class Task1 {
     private Task1() {
     }
 
-    public static int minutesToSeconds(String time) throws RuntimeException {
-        int separator = time.indexOf(':');
-        if (separator == -1) {
-            throw new RuntimeException(MISSING_SIGN_IN_TIME.getMessage());
-        }
+    public static int minutesToSeconds(String time) {
         int minutes;
         int seconds;
+        String[] timeArray = time.split(":");
+        if (timeArray.length == 1) {
+            throw new RuntimeException(MISSING_SIGN_IN_TIME.getMessage());
+        }
+
+        String minutesString = timeArray[0];
+        String secondsString = timeArray[1];
         try {
-            String minutesString = time.substring(0, separator);
-            String secondsString = time.substring(separator + 1);
             if (minutesString.length() < 2 || secondsString.length() != 2) {
                 throw new RuntimeException(TIME_FORMAT_MMSS.getMessage());
             }
