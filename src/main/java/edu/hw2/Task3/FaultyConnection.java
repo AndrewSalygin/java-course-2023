@@ -9,12 +9,10 @@ public class FaultyConnection implements Connection {
     @Override
     @SuppressWarnings("MagicNumber")
     public void execute(String command) {
-        LOGGER.info("Соединение открыто.");
-
         double probability = 0.75;
 
-        if (RandomProbability.random.nextDouble() < probability) {
-            throw new ConnectionException("Соединение закрылось с ошибкой. ");
+        if (RandomProbability.attempt(probability)) {
+            throw new ConnectionException("Команда не выполнена из-за проблемы с сетью. ");
         }
         LOGGER.info("Команда успешно выполнена.");
     }

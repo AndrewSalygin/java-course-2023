@@ -1,6 +1,6 @@
 package edu.hw2.Task4;
 
-public class Utils {
+public final class Utils {
     private Utils() {}
 
     public static CallingInfo callingInfo() {

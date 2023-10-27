@@ -6,7 +6,7 @@ public class DefaultConnectionManager implements ConnectionManager {
     public Connection getConnection() {
         double probability = 0.7;
 
-        if (RandomProbability.random.nextDouble() < probability) {
+        if (RandomProbability.attempt(probability)) {
             return new FaultyConnection();
         }
         return new StableConnection();

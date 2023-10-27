@@ -1,15 +1,12 @@
 package edu.hw2.Task2;
 
 public class Rectangle {
-    private int width;
-    private int height;
+    protected final int width;
+    protected final int height;
 
     public Rectangle(int width, int height) {
         this.width = width;
         this.height = height;
-    }
-
-    public Rectangle() {
     }
 
     public Rectangle setWidth(int width) {

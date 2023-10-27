@@ -18,16 +18,21 @@ public final class PopularCommandExecutor {
     }
 
     void tryExecute(String command) {
+        Connection connection = manager.getConnection();
         for (int i = 0; i < maxAttempts; i++) {
-            try (Connection connection = manager.getConnection()) {
+            try {
                 connection.execute(command);
                 return;
             } catch (ConnectionException ex) {
-                LOGGER.info(ex.getMessage() + "Попытка повторного подключения.");
-            } catch (Exception ex) {
-                LOGGER.info("Ошибка закрытия соединения: " + ex.getMessage());
+                LOGGER.info("Попытка повторного подключения. ", ex);
             }
         }
+        try {
+            connection.close();
+        } catch (Exception ex) {
+            LOGGER.info("Ошибка закрытия соединения: ", ex);
+        }
+
         throw new ConnectionException("Превышено количество подключений.");
     }
 }
