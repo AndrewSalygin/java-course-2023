@@ -1,10 +1,16 @@
 package edu.hw3.Task5;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public final class Task5 {
+    private static final Comparator<Contact> ASC = Comparator
+        .comparing(Contact::getSurname)
+        .thenComparing(Contact::getName);
+
+    private static final Comparator<Contact> DESC = ASC.reversed();
+
     private Task5() {}
 
     public static List<Contact> parseContacts(String[] stringContacts, Order order) {
@@ -30,10 +36,11 @@ public final class Task5 {
             }
             contacts.add(tmpContact);
         }
+
         if (order == Order.ASC) {
-            Collections.sort(contacts);
+            contacts.sort(ASC);
         } else {
-            contacts.sort(Collections.reverseOrder());
+            contacts.sort(DESC);
         }
         return contacts;
     }

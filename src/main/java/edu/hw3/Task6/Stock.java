@@ -1,9 +1,8 @@
 package edu.hw3.Task6;
 
 import java.util.Objects;
-import org.jetbrains.annotations.NotNull;
 
-public class Stock implements Comparable<Stock> {
+public class Stock {
     private String ticker;
 
     private Double price;
@@ -41,11 +40,6 @@ public class Stock implements Comparable<Stock> {
     @Override
     public int hashCode() {
         return Objects.hash(ticker);
-    }
-
-    @Override
-    public int compareTo(@NotNull Stock o) {
-        return o.getPrice().compareTo(this.price);
     }
 
     @Override public String toString() {

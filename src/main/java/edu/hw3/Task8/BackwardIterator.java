@@ -1,5 +1,6 @@
 package edu.hw3.Task8;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -8,9 +9,9 @@ public class BackwardIterator<T> implements Iterator<T> {
     private final List<T> elements;
     private int index;
 
-    public BackwardIterator(List<T> list) {
-        elements = list;
-        index = list.size() - 1;
+    public BackwardIterator(Collection<T> collection) {
+        elements = collection.stream().toList();
+        index = collection.size() - 1;
     }
 
     @Override

@@ -1,9 +1,8 @@
 package edu.hw3.Task5;
 
 import java.util.Objects;
-import org.jetbrains.annotations.NotNull;
 
-public class Contact implements Comparable<Contact> {
+public class Contact {
     private String surname;
     private String name;
 
@@ -15,6 +14,14 @@ public class Contact implements Comparable<Contact> {
     public Contact(String name) {
         this.surname = "";
         this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override public boolean equals(Object o) {
@@ -31,19 +38,6 @@ public class Contact implements Comparable<Contact> {
     @Override
     public int hashCode() {
         return Objects.hash(surname, name);
-    }
-
-    @Override
-    public int compareTo(@NotNull Contact contact) {
-        if (!this.surname.equals("") && !contact.surname.equals("")) {
-            return this.surname.compareTo(contact.surname);
-        } else if (this.surname.equals("") && !contact.surname.equals("")) {
-            return this.name.compareTo(contact.surname);
-        } else if (!this.surname.equals("") && contact.surname.equals("")) {
-            return this.surname.compareTo(contact.name);
-        } else {
-            return this.name.compareTo(contact.name);
-        }
     }
 
     @Override public String toString() {

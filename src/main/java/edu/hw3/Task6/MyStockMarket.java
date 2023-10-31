@@ -1,12 +1,17 @@
 package edu.hw3.Task6;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class MyStockMarket implements StockMarket {
+
+    public static final Comparator<Stock> COAST_COMPARATOR = Comparator
+        .comparingDouble(Stock::getPrice).reversed();
+
     private PriorityQueue<Stock> stocks;
 
     public MyStockMarket() {
-        stocks = new PriorityQueue<>();
+        stocks = new PriorityQueue<>(COAST_COMPARATOR);
     }
 
     @Override
