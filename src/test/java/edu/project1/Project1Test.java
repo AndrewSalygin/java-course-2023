@@ -12,57 +12,83 @@ public class Project1Test {
     @DisplayName("Победа")
     void winTest() {
         String answer = "melon";
-        Session session = new Session(answer, new char[] {'m', 'e', 'l', '*', 'n'}, 5, 4);
-        GuessResult guessResult = session.guess('o');
-        assertThat(guessResult).isInstanceOf(GuessResult.Win.class);
-        assertThat(guessResult.state()).containsExactly(answer.toCharArray());
-        assertThat(guessResult.attempt()).isNotEqualTo(guessResult.maxAttempts());
+        ConsolePlayer player = new ConsolePlayer(answer.length());
+        ConsoleHangman consoleHangman = new ConsoleHangman(new String[] {"melon"}, player);
+        consoleHangman.initGame();
+        player.guess('m');
+        player.guess('e');
+        player.guess('l');
+        player.guess('o');
+        GameStatus gameStatusResult = player.guess('n');
+        assertThat(gameStatusResult).isEqualTo(GameStatus.WIN);
+        assertThat(player.getUserAnswer()).containsExactly(answer.toCharArray());
+        assertThat(Board.attempt).isNotEqualTo(Board.MAX_ATTEMPTS);
     }
 
     @Test
     @DisplayName("Поражение")
     void defeatTest() {
-        Session session = new Session("melon", new char[] {'m', 'e', 'l', '*', 'n'}, 5, 4);
-        GuessResult guessResult = session.guess('p');
-        assertThat(guessResult).isInstanceOf(GuessResult.Defeat.class);
-        assertThat(guessResult.state()).containsExactly('m', 'e', 'l', '*', 'n');
-        assertThat(guessResult.attempt()).isEqualTo(guessResult.maxAttempts());
+        String answer = "melon";
+        ConsolePlayer player = new ConsolePlayer(answer.length());
+        ConsoleHangman consoleHangman = new ConsoleHangman(new String[] {"melon"}, player);
+        consoleHangman.initGame();
+        player.guess('m');
+        player.guess('e');
+        player.guess('l');
+        player.guess('o');
+        player.guess('q');
+        player.guess('q');
+        player.guess('q');
+        player.guess('q');
+        GameStatus gameStatusResult = player.guess('q');
+        assertThat(gameStatusResult).isEqualTo(GameStatus.DEFEAT);
+        assertThat(player.getUserAnswer()).containsExactly('m', 'e', 'l', 'o', '*');
+        assertThat(Board.attempt).isEqualTo(Board.MAX_ATTEMPTS);
     }
 
     @Test
     @DisplayName("Буква угадана")
     void successfulGuessTest() {
-        Session session = new Session("melon", new char[] {'m', 'e', '*', '*', 'n'}, 5, 4);
-        GuessResult guessResult = session.guess('l');
-        assertThat(guessResult).isInstanceOf(GuessResult.SuccessfulGuess.class);
-        assertThat(guessResult.state()).containsExactly('m', 'e', 'l', '*', 'n');
-        assertThat(guessResult.attempt()).isNotEqualTo(guessResult.maxAttempts());
+        String answer = "melon";
+        ConsolePlayer player = new ConsolePlayer(answer.length());
+        ConsoleHangman consoleHangman = new ConsoleHangman(new String[] {"melon"}, player);
+        consoleHangman.initGame();
+        GameStatus gameStatusResult = player.guess('m');
+        assertThat(gameStatusResult).isEqualTo(GameStatus.SUCCESS_GUESS);
+        assertThat(player.getUserAnswer()).containsExactly('m', '*', '*', '*', '*');
+        assertThat(Board.attempt).isNotEqualTo(Board.MAX_ATTEMPTS);
     }
 
     @Test
     @DisplayName("Буква не угадана")
     void failedGuessTest() {
-        Session session = new Session("melon", new char[] {'m', 'e', '*', '*', 'n'}, 5, 3);
-        GuessResult guessResult = session.guess('q');
-        assertThat(guessResult).isInstanceOf(GuessResult.FailedGuess.class);
-        assertThat(guessResult.state()).containsExactly('m', 'e', '*', '*', 'n');
-        assertThat(guessResult.attempt()).isNotEqualTo(guessResult.maxAttempts());
+        String answer = "melon";
+        ConsolePlayer player = new ConsolePlayer(answer.length());
+        ConsoleHangman consoleHangman = new ConsoleHangman(new String[] {"melon"}, player);
+        consoleHangman.initGame();
+        GameStatus gameStatusResult = player.guess('q');
+        assertThat(gameStatusResult).isEqualTo(GameStatus.FAILED_GUESS);
+        assertThat(player.getUserAnswer()).containsExactly('*', '*', '*', '*', '*');
+        assertThat(Board.attempt).isNotEqualTo(Board.MAX_ATTEMPTS);
     }
 
     @Test
     @DisplayName("Сдаться")
     void giveUpTest() {
-        Session session = new Session("melon", new char[] {'m', 'e', '*', '*', 'n'}, 5, 3);
-        GuessResult guessResult = session.giveUp();
-        assertThat(guessResult).isInstanceOf(GuessResult.Defeat.class);
-        assertThat(guessResult.state()).containsExactly('m', 'e', '*', '*', 'n');
-        assertThat(guessResult.attempt()).isNotEqualTo(guessResult.maxAttempts());
+        String answer = "melon";
+        ConsolePlayer player = new ConsolePlayer(answer.length());
+        ConsoleHangman consoleHangman = new ConsoleHangman(new String[] {"melon"}, player);
+        consoleHangman.initGame();
+        GameStatus gameStatusResult = player.giveUp();
+        assertThat(gameStatusResult).isEqualTo(GameStatus.DEFEAT);
+        assertThat(player.getUserAnswer()).containsExactly('*', '*', '*', '*', '*');
+        assertThat(Board.attempt).isNotEqualTo(Board.MAX_ATTEMPTS);
     }
 
     @Test
     @DisplayName("Игра не запускается, если загадываемое слово имеет некорректную длину")
     void gameDoesNotStartTest() {
-        DictionaryImplementation dictionary = new DictionaryImplementation(new String[]{"", "a"});
+        DictionaryImplementation dictionary = new DictionaryImplementation(new String[] {"", "a"});
         Throwable thrown = catchThrowable(dictionary::randomWord);
         assertThat(thrown).hasMessage("The dictionary is empty.");
     }
@@ -70,7 +96,7 @@ public class Project1Test {
     @Test
     @DisplayName("Формирование словаря")
     void dictionaryFormationTest() throws NoSuchFieldException, IllegalAccessException {
-        DictionaryImplementation dictionary = new DictionaryImplementation(new String[]{"", "a", "melon", "яблоко",
+        DictionaryImplementation dictionary = new DictionaryImplementation(new String[] {"", "a", "melon", "яблоко",
             "ГрУшА", "WaTeRMeLoN"});
         Field wordsField = dictionary.getClass().getDeclaredField("words");
         wordsField.setAccessible(true);
