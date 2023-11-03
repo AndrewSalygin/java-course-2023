@@ -9,11 +9,15 @@ import org.jetbrains.annotations.NotNull;
 public class DictionaryImplementation implements Dictionary {
     private static final Random RANDOM = new Random();
     private final List<String> words;
-    boolean isErroneousWords;
+    private boolean isErroneousWords;
 
     public DictionaryImplementation(String[] inputWords) {
         isErroneousWords = false;
         this.words = getCorrectWords(inputWords);
+    }
+
+    public boolean isErroneousWords() {
+        return isErroneousWords;
     }
 
     @Override

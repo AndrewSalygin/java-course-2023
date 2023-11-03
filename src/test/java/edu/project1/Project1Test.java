@@ -11,78 +11,57 @@ public class Project1Test {
     @Test
     @DisplayName("Победа")
     void winTest() {
-        String answer = "melon";
-        ConsolePlayer player = new ConsolePlayer(answer.length());
-        ConsoleHangman consoleHangman = new ConsoleHangman(new String[] {"melon"}, player);
-        consoleHangman.initGame();
-        player.guess('m');
-        player.guess('e');
-        player.guess('l');
-        player.guess('o');
-        GameStatus gameStatusResult = player.guess('n');
+        HangmanGame hangmanGame = new HangmanGame(new String[]{"melon"}, new ConsoleInteractionWithGame(), 5);
+        Board board = hangmanGame.getBoard();
+        board.guess('m');
+        board.guess('e');
+        board.guess('l');
+        board.guess('o');
+        GameStatus gameStatusResult = board.guess('n');
         assertThat(gameStatusResult).isEqualTo(GameStatus.WIN);
-        assertThat(player.getUserAnswer()).containsExactly(answer.toCharArray());
-        assertThat(Board.attempt).isNotEqualTo(Board.MAX_ATTEMPTS);
+        assertThat(board.getUserAnswer()).containsExactly(board.getAnswer().toCharArray());
+        assertThat(board.getAttempt()).isNotEqualTo(board.getMaxAttempts());
     }
 
     @Test
     @DisplayName("Поражение")
     void defeatTest() {
-        String answer = "melon";
-        ConsolePlayer player = new ConsolePlayer(answer.length());
-        ConsoleHangman consoleHangman = new ConsoleHangman(new String[] {"melon"}, player);
-        consoleHangman.initGame();
-        player.guess('m');
-        player.guess('e');
-        player.guess('l');
-        player.guess('o');
-        player.guess('q');
-        player.guess('q');
-        player.guess('q');
-        player.guess('q');
-        GameStatus gameStatusResult = player.guess('q');
+        HangmanGame hangmanGame = new HangmanGame(new String[]{"melon"}, new ConsoleInteractionWithGame(), 5);
+        Board board = hangmanGame.getBoard();
+        board.guess('m');
+        board.guess('e');
+        board.guess('l');
+        board.guess('o');
+        board.guess('q');
+        board.guess('q');
+        board.guess('q');
+        board.guess('q');
+        GameStatus gameStatusResult = board.guess('q');
         assertThat(gameStatusResult).isEqualTo(GameStatus.DEFEAT);
-        assertThat(player.getUserAnswer()).containsExactly('m', 'e', 'l', 'o', '*');
-        assertThat(Board.attempt).isEqualTo(Board.MAX_ATTEMPTS);
+        assertThat(board.getUserAnswer()).containsExactly('m', 'e', 'l', 'o', '*');
+        assertThat(board.getAttempt()).isEqualTo(board.getMaxAttempts());
     }
 
     @Test
     @DisplayName("Буква угадана")
     void successfulGuessTest() {
-        String answer = "melon";
-        ConsolePlayer player = new ConsolePlayer(answer.length());
-        ConsoleHangman consoleHangman = new ConsoleHangman(new String[] {"melon"}, player);
-        consoleHangman.initGame();
-        GameStatus gameStatusResult = player.guess('m');
+        HangmanGame hangmanGame = new HangmanGame(new String[]{"melon"}, new ConsoleInteractionWithGame(), 5);
+        Board board = hangmanGame.getBoard();
+        GameStatus gameStatusResult = board.guess('m');
         assertThat(gameStatusResult).isEqualTo(GameStatus.SUCCESS_GUESS);
-        assertThat(player.getUserAnswer()).containsExactly('m', '*', '*', '*', '*');
-        assertThat(Board.attempt).isNotEqualTo(Board.MAX_ATTEMPTS);
+        assertThat(board.getUserAnswer()).containsExactly('m', '*', '*', '*', '*');
+        assertThat(board.getAttempt()).isNotEqualTo(board.getMaxAttempts());
     }
 
     @Test
     @DisplayName("Буква не угадана")
     void failedGuessTest() {
-        String answer = "melon";
-        ConsolePlayer player = new ConsolePlayer(answer.length());
-        ConsoleHangman consoleHangman = new ConsoleHangman(new String[] {"melon"}, player);
-        consoleHangman.initGame();
-        GameStatus gameStatusResult = player.guess('q');
+        HangmanGame hangmanGame = new HangmanGame(new String[]{"melon"}, new ConsoleInteractionWithGame(), 5);
+        Board board = hangmanGame.getBoard();
+        GameStatus gameStatusResult = board.guess('q');
         assertThat(gameStatusResult).isEqualTo(GameStatus.FAILED_GUESS);
-        assertThat(player.getUserAnswer()).containsExactly('*', '*', '*', '*', '*');
-        assertThat(Board.attempt).isNotEqualTo(Board.MAX_ATTEMPTS);
-    }
-
-    @Test
-    @DisplayName("Сдаться")
-    void giveUpTest() {
-        String answer = "melon";
-        ConsolePlayer player = new ConsolePlayer(answer.length());
-        ConsoleHangman consoleHangman = new ConsoleHangman(new String[] {"melon"}, player);
-        consoleHangman.initGame();
-        GameStatus gameStatusResult = player.giveUp();
-        assertThat(gameStatusResult).isEqualTo(GameStatus.DEFEAT);
-        assertThat(player.getUserAnswer()).containsExactly('*', '*', '*', '*', '*');
-        assertThat(Board.attempt).isNotEqualTo(Board.MAX_ATTEMPTS);
+        assertThat(board.getUserAnswer()).containsExactly('*', '*', '*', '*', '*');
+        assertThat(board.getAttempt()).isNotEqualTo(board.getMaxAttempts());
     }
 
     @Test
