@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -115,9 +116,15 @@ public class Homework4 {
     }
 
     public Map<Animal.Type, Integer> task15(int k, int l) {
-        return animals.stream()
+        Map<Animal.Type, Integer> resultAnimals = animals.stream()
             .filter(animal -> animal.age() >= k && animal.age() <= l)
             .collect(Collectors.groupingBy(Animal::type, Collectors.summingInt(Animal::weight)));
+
+        for (Animal.Type animalType : Animal.Type.values()) {
+            resultAnimals.putIfAbsent(animalType, 0);
+        }
+
+        return resultAnimals;
     }
 
     public List<Animal> task16() {
@@ -157,4 +164,34 @@ public class Homework4 {
         return heaviestFish.orElse(null);
     }
 
+    public final Map<String, TreeSet<ValidationError>> task19() {
+        return animals.stream()
+            .collect(Collectors.toMap(Animal::name, animal -> {
+                TreeSet<ValidationError> animalErrors = new TreeSet<>();
+                if (Character.isLowerCase(animal.name().charAt(0))) {
+                    animalErrors.add(ValidationError.NAME_ERROR);
+                }
+                if (animal.age() < 0) {
+                    animalErrors.add(ValidationError.AGE_ERROR);
+                }
+                if (animal.height() < 0) {
+                    animalErrors.add(ValidationError.HEIGHT_ERROR);
+                }
+                if (animal.weight() < 0) {
+                    animalErrors.add(ValidationError.WEIGHT_ERROR);
+                }
+                return animalErrors;
+            }));
+    }
+
+    public final Map<String, String> task20() {
+        Map<String, TreeSet<ValidationError>> animalErrors = task19();
+        return animalErrors.entrySet().stream()
+            .collect(Collectors.toMap(
+                Map.Entry::getKey,
+                entry -> entry.getValue().stream()
+                    .map(error -> error.field)
+                    .collect(Collectors.joining(", "))
+            ));
+    }
 }

@@ -1,5 +1,6 @@
 package edu.hw4;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -7,7 +8,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestHomework4 {
     private final Animal MURKA =
@@ -165,7 +171,9 @@ public class TestHomework4 {
         Map<Animal.Type, Integer> expectedResult = new HashMap<>(Map.of(
             Animal.Type.CAT, 7000,
             Animal.Type.DOG, 5000,
-            Animal.Type.FISH, 1000
+            Animal.Type.FISH, 1000,
+            Animal.Type.BIRD, 0,
+            Animal.Type.SPIDER, 0
         ));
         Map<Animal.Type, Integer> result = homework4.task15(k, l);
         assertEquals(expectedResult, result);
@@ -201,5 +209,54 @@ public class TestHomework4 {
 
         Animal result = homework4.task18(homework4.getAnimals(), animals1, animals2);
         assertEquals(shark, result);
+    }
+
+    @Test
+    @DisplayName("Тест 19 задания")
+    void task19Test() {
+        Animal kitten = new Animal("Котичек", Animal.Type.CAT, Animal.Sex.M, -5, 30, -250, false);
+        Animal puppy = new Animal("щеночек", Animal.Type.DOG, Animal.Sex.M, 5, -2, 350, false);
+        Animal bird = new Animal("Птенчик", Animal.Type.BIRD, Animal.Sex.F, 5, 2, -250, false);
+
+        List<Animal> localAnimals = new ArrayList<>(List.of(kitten, puppy, bird));
+        Homework4 homework = new Homework4(localAnimals);
+
+        Map<String, TreeSet<ValidationError>> result = homework.task19();
+        Map<String, Set<ValidationError>> expectedResult = Map.of(
+            kitten.name(),
+
+            Set.of(
+                ValidationError.AGE_ERROR,
+                ValidationError.WEIGHT_ERROR
+            ),
+            puppy.name(),
+            Set.of(ValidationError.NAME_ERROR, ValidationError.HEIGHT_ERROR),
+            bird.name(),
+            Set.of(ValidationError.WEIGHT_ERROR)
+        );
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    @DisplayName("Тест 20 задания")
+    void task20Test() {
+        Animal kitten = new Animal("Котичек", Animal.Type.CAT, Animal.Sex.M, -5, 30, -250, false);
+        Animal puppy = new Animal("щеночек", Animal.Type.DOG, Animal.Sex.M, 5, -2, 350, false);
+        Animal bird = new Animal("Птенчик", Animal.Type.BIRD, Animal.Sex.F, 5, 2, -250, false);
+
+        List<Animal> localAnimals = new ArrayList<>(List.of(kitten, puppy, bird));
+        Homework4 homework = new Homework4(localAnimals);
+
+        Map<String, String> resultMap = homework.task20();
+        Map<String, String> expectedMap = Map.of(
+            puppy.name(),
+            "height, name",
+            kitten.name(),
+            "age, weight",
+            bird.name(),
+            "weight"
+        );
+
+        assertEquals(expectedMap, resultMap);
     }
 }
