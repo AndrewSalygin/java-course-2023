@@ -4,18 +4,34 @@ import java.util.List;
 
 public class ConsoleMazeRenderer implements MazeRenderer {
     @Override
-    public void render(Maze maze) {
+    public String render(Maze maze) {
+        StringBuilder mazeString = new StringBuilder();
+
         Cell[][] grid = maze.getGrid();
         for (int i = 0; i < maze.getHeight(); i++) {
             for (int j = 0; j < maze.getWidth(); j++) {
-                System.out.print(grid[i][j].getType().getSymbol());
+                mazeString.append(grid[i][j].getType().getSymbol());
             }
-            System.out.println();
+            mazeString.append('\n');
         }
+        return mazeString.toString();
     }
 
     @Override
-    public void render(Maze maze, List<Coordinate> path) {
-//        return null;
+    public String render(Maze maze, List<Coordinate> path) {
+        StringBuilder mazeString = new StringBuilder();
+
+        Cell[][] grid = maze.getGrid();
+        for (int i = 0; i < maze.getHeight(); i++) {
+            for (int j = 0; j < maze.getWidth(); j++) {
+                if (path.contains(new Coordinate(i, j))) {
+                    mazeString.append(Cell.Type.PATH.getSymbol());
+                } else {
+                    mazeString.append(grid[i][j].getType().getSymbol());
+                }
+            }
+            mazeString.append('\n');
+        }
+        return mazeString.toString();
     }
 }
