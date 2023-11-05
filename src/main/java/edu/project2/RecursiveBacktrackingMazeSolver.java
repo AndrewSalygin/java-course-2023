@@ -8,18 +8,15 @@ public class RecursiveBacktrackingMazeSolver implements MazeSolver {
 
     @Override
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
-        if (!(start.col() > 0 && start.col() < maze.getGrid()[0].length - 1 && start.row() > 0 &&
-            start.row() < maze.getGrid().length - 1)) {
+        if (!(start.col() > 0 && start.col() < maze.getGrid()[0].length - 1 && start.row() > 0
+            && start.row() < maze.getGrid().length - 1)) {
             throw new RuntimeException("Стартовая клетка выходит за пределы лабиринта.");
-        }
-        else if (!(end.col() > 0 && end.col() < maze.getGrid()[0].length - 1 && end.row() > 0 &&
-            end.row() < maze.getGrid().length - 1)) {
+        } else if (!(end.col() > 0 && end.col() < maze.getGrid()[0].length - 1 && end.row() > 0
+            && end.row() < maze.getGrid().length - 1)) {
             throw new RuntimeException("Конечная клетка выходит за пределы лабиринта.");
-        }
-        else if (maze.getGrid()[start.row()][start.col()].getType() == Cell.Type.WALL) {
+        } else if (maze.getGrid()[start.row()][start.col()].getType() == Cell.Type.WALL) {
             throw new RuntimeException("Не существует пути, так как стартовая клетка стена.");
-        }
-        else if (maze.getGrid()[end.row()][end.col()].getType() == Cell.Type.WALL) {
+        } else if (maze.getGrid()[end.row()][end.col()].getType() == Cell.Type.WALL) {
             throw new RuntimeException("Не существует пути, так как конечная клетка стена.");
         }
 
@@ -46,8 +43,8 @@ public class RecursiveBacktrackingMazeSolver implements MazeSolver {
         List<Cell> neighbors = maze.getNeighbors(currentCell);
 
         for (Cell neighbor : neighbors) {
-            if (neighbor.getType() == Cell.Type.PASSAGE &&
-                !path.contains(new Coordinate(neighbor.getRow(), neighbor.getCol()))) {
+            if (neighbor.getType() == Cell.Type.PASSAGE
+                && !path.contains(new Coordinate(neighbor.getRow(), neighbor.getCol()))) {
                 path.add(new Coordinate(currentCell.getRow(), currentCell.getCol()));
 
                 if (generatePathRecursively(maze, neighbor, endCell, path)) {

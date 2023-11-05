@@ -9,6 +9,7 @@ public class RecursiveBacktrackingMazeGenerator implements MazeGenerator {
     private static final Random RANDOM = new Random();
 
     @Override
+    @SuppressWarnings("MagicNumber")
     public Maze generate(int height, int width) {
         if (height < 7 || width < 7) {
             throw new RuntimeException("Лабиринт может быть минимум размера 7x7");
@@ -37,13 +38,17 @@ public class RecursiveBacktrackingMazeGenerator implements MazeGenerator {
         return new Maze(height, width, grid);
     }
 
+    @SuppressWarnings({"MissingSwitchDefault", "InnerAssignment"})
     private void generateMazeRecursively(Cell[][] grid, int x, int y) {
-        List<Direction> directions = new ArrayList<>(List.of(Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT));
+        List<Direction> directions =
+            new ArrayList<>(List.of(Direction.UP, Direction.RIGHT, Direction.DOWN, Direction.LEFT));
         Collections.shuffle(directions, RANDOM);
 
+        int nextX;
+        int nextY;
         for (Direction direction : directions) {
-            int nextX = x;
-            int nextY = y;
+            nextX = x;
+            nextY = y;
 
             switch (direction) {
                 case UP -> nextY += 2;

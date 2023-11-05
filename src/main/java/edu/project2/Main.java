@@ -1,12 +1,19 @@
 package edu.project2;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class Main {
+public final class Main {
+
     private final static Logger LOGGER = LogManager.getLogger();
+
+    private Main() {
+
+    }
+
+    @SuppressWarnings({"MagicNumber", "RegexpSinglelineJava"})
     public static void main(String[] args) {
         MazeGenerator mazeGenerator = new RecursiveBacktrackingMazeGenerator();
         ConsoleMazeRenderer consoleMazeRenderer = new ConsoleMazeRenderer();
