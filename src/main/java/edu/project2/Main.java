@@ -17,7 +17,7 @@ public final class Main {
     public static void main(String[] args) {
         MazeGenerator mazeGenerator = new RecursiveBacktrackingMazeGenerator();
         ConsoleMazeRenderer consoleMazeRenderer = new ConsoleMazeRenderer();
-        MazeSolver solver = new RecursiveBacktrackingMazeSolver();
+        MazeSolver solver = new ShortestPathFinderMazeSolver();
 
         Maze maze = mazeGenerator.generate(21, 41);
         System.out.println(consoleMazeRenderer.render(maze));

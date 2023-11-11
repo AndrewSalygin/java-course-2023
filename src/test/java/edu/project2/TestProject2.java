@@ -53,7 +53,7 @@ public class TestProject2 {
     void pathExistTest() {
         RANDOM.setSeed(41);
         MazeGenerator mazeGenerator = new RecursiveBacktrackingMazeGenerator();
-        MazeSolver solver = new RecursiveBacktrackingMazeSolver();
+        MazeSolver solver = new ShortestPathFinderMazeSolver();
 
         Maze maze = mazeGenerator.generate(7, 7);
         List<Coordinate> result = solver.solve(maze, new Coordinate(1, 1), new Coordinate(3, 1));
@@ -74,7 +74,7 @@ public class TestProject2 {
     void pathNotExistToEndTest() {
         RANDOM.setSeed(41);
         MazeGenerator mazeGenerator = new RecursiveBacktrackingMazeGenerator();
-        MazeSolver solver = new RecursiveBacktrackingMazeSolver();
+        MazeSolver solver = new ShortestPathFinderMazeSolver();
 
         Maze maze = mazeGenerator.generate(7, 7);
         Throwable thrown = catchThrowable(() -> solver.solve(maze, new Coordinate(1, 1), new Coordinate(2, 1)));
@@ -86,7 +86,7 @@ public class TestProject2 {
     void pathNotExistFromStartTest() {
         RANDOM.setSeed(41);
         MazeGenerator mazeGenerator = new RecursiveBacktrackingMazeGenerator();
-        MazeSolver solver = new RecursiveBacktrackingMazeSolver();
+        MazeSolver solver = new ShortestPathFinderMazeSolver();
 
         Maze maze = mazeGenerator.generate(7, 7);
         Throwable thrown = catchThrowable(() -> solver.solve(maze, new Coordinate(2, 1), new Coordinate(1, 1)));
@@ -98,7 +98,7 @@ public class TestProject2 {
     void pathNotExistToIncorrectEndTest() {
         RANDOM.setSeed(41);
         MazeGenerator mazeGenerator = new RecursiveBacktrackingMazeGenerator();
-        MazeSolver solver = new RecursiveBacktrackingMazeSolver();
+        MazeSolver solver = new ShortestPathFinderMazeSolver();
 
         Maze maze = mazeGenerator.generate(7, 7);
         Throwable thrown = catchThrowable(() -> solver.solve(maze, new Coordinate(2, 1), new Coordinate(1, 10)));
@@ -110,7 +110,7 @@ public class TestProject2 {
     void pathNotExistFromIncorrectStartTest() {
         RANDOM.setSeed(41);
         MazeGenerator mazeGenerator = new RecursiveBacktrackingMazeGenerator();
-        MazeSolver solver = new RecursiveBacktrackingMazeSolver();
+        MazeSolver solver = new ShortestPathFinderMazeSolver();
 
         Maze maze = mazeGenerator.generate(7, 7);
         Throwable thrown = catchThrowable(() -> solver.solve(maze, new Coordinate(10, 1), new Coordinate(1, 1)));
