@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public final class Task3 {
 
@@ -41,11 +39,7 @@ public final class Task3 {
                 result =  Optional.of(LocalDate.now().minusDays(1));
             }
             default -> {
-                String regex = "^(\\d+ days ago)$";
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(date);
-
-                if (matcher.matches()) {
+                if (date.matches("^(\\d+ days ago)$")) {
                     result = Optional.of(LocalDate.now().minusDays(Integer.parseInt(date.split(" ")[0])));
                 }
             }
