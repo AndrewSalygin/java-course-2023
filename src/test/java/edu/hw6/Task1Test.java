@@ -14,22 +14,20 @@ public class Task1Test {
     @Test
     @DisplayName("Создание и сохранение файла")
     void fileCreateAndSaveTest() {
-        DiskMap diskMap = new DiskMap();
-        diskMap.getDiskMap().put("key1", "value1");
-        diskMap.getDiskMap().put("key2", "value2");
+        DiskMap diskMap = new DiskMap("src/main/resources/hw6/Task1/file.txt");
+        diskMap.put("key1", "value1");
+        diskMap.put("key2", "value2");
 
-        Path path = Paths.get("src/main/resources/hw6/Task1/file.txt");
-        diskMap.saveToFile(path);
-        assertTrue(Files.exists(path));
+        assertTrue(Files.exists(Path.of("src/main/resources/hw6/Task1/file.txt")));
     }
 
     @Test
     @DisplayName("Загрузка из файла")
     void fileUploadTest() {
         fileCreateAndSaveTest();
-        Path path = Paths.get("src/main/resources/hw6/Task1/file.txt");
-        DiskMap diskMap = new DiskMap(path);
+        DiskMap diskMap = new DiskMap("src/main/resources/hw6/Task1/file.txt");
 
-        assertEquals(diskMap.getDiskMap(), Map.of("key1", "value1", "key2", "value2"));
+        assertEquals(diskMap.get("key1"), "value1");
+        assertEquals(diskMap.get("key2"), "value2");
     }
 }
