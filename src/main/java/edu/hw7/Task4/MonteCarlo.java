@@ -1,7 +1,6 @@
 package edu.hw7.Task4;
 
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -10,8 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
 public final class MonteCarlo {
-    private final static Random RANDOM = new Random();
-    private final static int COUNT_OF_THREADS = 4;
+    private final static int COUNT_OF_THREADS = 2;
 
     private MonteCarlo() {
     }
@@ -22,8 +20,8 @@ public final class MonteCarlo {
         double x;
         double y;
         for (int i = 0; i < n; i++) {
-            x = RANDOM.nextDouble();
-            y = RANDOM.nextDouble();
+            x = ThreadLocalRandom.current().nextDouble();
+            y = ThreadLocalRandom.current().nextDouble();
             if (Math.sqrt(x * x + y * y) <= 1) {
                 circleCount++;
             }
