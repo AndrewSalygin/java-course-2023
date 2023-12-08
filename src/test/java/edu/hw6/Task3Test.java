@@ -17,6 +17,7 @@ import static edu.hw6.Task3.AbstractFilter.largerThan;
 import static edu.hw6.Task3.AbstractFilter.magicNumber;
 import static edu.hw6.Task3.AbstractFilter.regexContains;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Task3Test {
     public static Path dir = Paths.get("src/main/resources/hw6/Task3");
@@ -50,14 +51,15 @@ public class Task3Test {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        assertEquals(
-            List.of(
-                Paths.get("src/main/resources/hw6/Task3/file.txt"),
-                Paths.get("src/main/resources/hw6/Task3/java2.png"),
-                Paths.get("src/main/resources/hw6/Task3/tinkoff-logo.png")
-            ),
-            result
+        List<Path> expectedPaths = List.of(
+            Paths.get("src/main/resources/hw6/Task3/tinkoff-logo.png"),
+            Paths.get("src/main/resources/hw6/Task3/java2.png"),
+            Paths.get("src/main/resources/hw6/Task3/file.txt")
         );
+
+        assertEquals(expectedPaths.size(), result.size());
+        assertTrue(expectedPaths.containsAll(result));
+        assertTrue(result.containsAll(expectedPaths));
     }
 
     @Test
@@ -70,14 +72,15 @@ public class Task3Test {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        assertEquals(
-            List.of(
-                Paths.get("src/main/resources/hw6/Task3/file.txt"),
-                Paths.get("src/main/resources/hw6/Task3/java2.png"),
-                Paths.get("src/main/resources/hw6/Task3/tinkoff-logo.png")
-            ),
-            result
+        List<Path> expectedPaths = List.of(
+            Paths.get("src/main/resources/hw6/Task3/tinkoff-logo.png"),
+            Paths.get("src/main/resources/hw6/Task3/java2.png"),
+            Paths.get("src/main/resources/hw6/Task3/file.txt")
         );
+
+        assertEquals(expectedPaths.size(), result.size());
+        assertTrue(expectedPaths.containsAll(result));
+        assertTrue(result.containsAll(expectedPaths));
     }
 
     @Test
@@ -90,14 +93,15 @@ public class Task3Test {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        assertEquals(
-            List.of(
-                Paths.get("src/main/resources/hw6/Task3/file.txt"),
-                Paths.get("src/main/resources/hw6/Task3/java2.png"),
-                Paths.get("src/main/resources/hw6/Task3/tinkoff-logo.png")
-            ),
-            result
+        List<Path> expectedPaths = List.of(
+            Paths.get("src/main/resources/hw6/Task3/tinkoff-logo.png"),
+            Paths.get("src/main/resources/hw6/Task3/java2.png"),
+            Paths.get("src/main/resources/hw6/Task3/file.txt")
         );
+
+        assertEquals(expectedPaths.size(), result.size());
+        assertTrue(expectedPaths.containsAll(result));
+        assertTrue(result.containsAll(expectedPaths));
     }
 
     @Test
@@ -110,13 +114,14 @@ public class Task3Test {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        assertEquals(
-            List.of(
-                Paths.get("src/main/resources/hw6/Task3/java2.png"),
-                Paths.get("src/main/resources/hw6/Task3/tinkoff-logo.png")
-            ),
-            result
+        List<Path> expectedPaths = List.of(
+            Paths.get("src/main/resources/hw6/Task3/tinkoff-logo.png"),
+            Paths.get("src/main/resources/hw6/Task3/java2.png")
         );
+
+        assertEquals(expectedPaths.size(), result.size());
+        assertTrue(expectedPaths.containsAll(result));
+        assertTrue(result.containsAll(expectedPaths));
     }
 
     @Test
@@ -129,13 +134,14 @@ public class Task3Test {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        assertEquals(
-            List.of(
-                Paths.get("src/main/resources/hw6/Task3/java2.png"),
-                Paths.get("src/main/resources/hw6/Task3/tinkoff-logo.png")
-            ),
-            result
+        List<Path> expectedPaths = List.of(
+            Paths.get("src/main/resources/hw6/Task3/tinkoff-logo.png"),
+            Paths.get("src/main/resources/hw6/Task3/java2.png")
         );
+
+        assertEquals(expectedPaths.size(), result.size());
+        assertTrue(expectedPaths.containsAll(result));
+        assertTrue(result.containsAll(expectedPaths));
     }
 
     @Test
