@@ -62,11 +62,6 @@ public class Project4Test {
             path,
             ImageFormat.PNG));
         assertTrue(Files.exists(path));
-        try {
-            Files.delete(path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Test
@@ -93,11 +88,6 @@ public class Project4Test {
             ImageFormat.PNG
         ));
         assertTrue(Files.exists(path));
-        try {
-            Files.delete(path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     @Test
@@ -124,10 +114,5 @@ public class Project4Test {
             ImageFormat.PNG
         ));
         assertTrue(Files.exists(path));
-        try {
-            Files.delete(path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
