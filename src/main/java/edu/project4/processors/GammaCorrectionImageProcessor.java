@@ -22,6 +22,14 @@ public class GammaCorrectionImageProcessor implements ImageProcessor {
                         pixel.setNormal(Math.log10(pixel.getHitCount()));
                         max = Math.max(max, pixel.getNormal());
                     }
+                }
+            }
+        }
+        for (int x = 0; x < image.width(); x++) {
+            for (int y = 0; y < image.height(); y++) {
+                pixelOptional = image.getPixel(x, y);
+                if (pixelOptional.isPresent()) {
+                    pixel = pixelOptional.get();
                     pixel.setNormal(pixel.getNormal() / max);
                     pixel.setR(
                         (int) (pixel.getR() * Math.pow(pixel.getNormal(), (1.0 / GAMMA))));
