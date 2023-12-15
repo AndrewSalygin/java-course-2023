@@ -2,11 +2,14 @@ package edu.hw8.Task2;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class FixedThreadPool implements ThreadPool {
+public final class FixedThreadPool implements ThreadPool {
     private final int countOfThreads;
     private final Thread[] threads;
     private final BlockingQueue<Runnable> taskQueue;
+    private final static Logger LOGGER = LogManager.getLogger();
 
     private FixedThreadPool(int countOfThreads) {
         this.countOfThreads = countOfThreads;
@@ -29,6 +32,8 @@ public class FixedThreadPool implements ThreadPool {
                     }
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
+                } catch (RuntimeException e) {
+                    LOGGER.error("RuntimeException caught", e);
                 }
             });
             threads[i].start();

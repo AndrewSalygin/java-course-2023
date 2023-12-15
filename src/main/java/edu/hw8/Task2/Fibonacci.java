@@ -3,7 +3,7 @@ package edu.hw8.Task2;
 import java.math.BigInteger;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class Fibonacci {
+public final class Fibonacci {
     private Fibonacci() {}
 
     public static final ConcurrentHashMap<Integer, BigInteger> FIB_NUMBERS = new ConcurrentHashMap<>();
