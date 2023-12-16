@@ -62,20 +62,19 @@ public final class RandomObjectGenerator {
             constructor = clazz.getConstructor(params);
             return generateObject(clazz, constructor);
         } catch (NoSuchMethodException e) {
-            if (clazz.isRecord()) {
-                constructor = ReflectionUtils.getConstructorWithMaxParameters(clazz);
+            constructor = ReflectionUtils.getConstructorWithMaxParameters(clazz);
+            if (constructor != null) {
                 return generateObject(clazz, constructor);
-            } else {
-                throw new IllegalArgumentException("Не удалось найти конструктор в классе " + clazz.getName()
-                    + " с указанными параметрами", e);
             }
+            throw new IllegalArgumentException("Не удалось найти конструктор в классе " + clazz.getName()
+                    + " с указанными параметрами", e);
         }
     }
 
     private <T> T generateObject(Class<T> clazz, Constructor<?> constructor) {
         Object[] parameters = generateRandomParameters(constructor.getParameters());
         try {
-            return (T) constructor.newInstance(parameters);
+            return clazz.cast(constructor.newInstance(parameters));
         } catch (Exception e) {
             throw new IllegalStateException("Не удалось создать объект класса " + clazz.getName(), e);
         }

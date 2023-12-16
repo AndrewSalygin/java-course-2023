@@ -1,5 +1,6 @@
-package edu.hw10.Task2;
+package edu.hw10;
 
+import edu.hw10.Task2.ExampleImplementation;
 import edu.hw10.Task2.fibcalculators.FibImplementationWithPersist;
 import edu.hw10.Task2.fibcalculators.FibImplementationWithoutPersist;
 import edu.hw10.Task2.interfaces.ExampleInterface;
@@ -44,7 +45,7 @@ public class CacheProxyTest {
         }
 
         Assertions.assertThat(cachedNumber).isEqualTo(6765);
-        Assertions.assertThat(properties.getProperty("20")).isEqualTo(String.valueOf(number));
+        Assertions.assertThat(properties.getProperty("20;")).isEqualTo(String.valueOf(number));
     }
 
     @Test

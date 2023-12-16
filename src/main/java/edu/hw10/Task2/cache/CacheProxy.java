@@ -159,7 +159,7 @@ public final class CacheProxy {
                     throw new IllegalArgumentException("Класс " + arg.getClass() + "не поддерживаем для сериализации");
                 }
 
-                arguments.append(argumentSerializer.serialize(arg));
+                arguments.append(argumentSerializer.serialize(arg)).append(';');
             }
             String serializedArguments = arguments.toString();
             String fileName = getFileName(method);

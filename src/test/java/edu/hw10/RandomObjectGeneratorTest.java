@@ -138,4 +138,7 @@ public class RandomObjectGeneratorTest {
     ) {
     }
 
+    public class ClassExample {
+    }
+
 }

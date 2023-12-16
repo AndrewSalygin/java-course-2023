@@ -8,13 +8,9 @@ public final class ReflectionUtils {
     }
 
     public static Constructor<?> getConstructorWithMaxParameters(Class<?> clazz) {
-        Constructor<?>[] constructors = clazz.getConstructors();
+        Constructor<?>[] constructors = clazz.getDeclaredConstructors();
         if (constructors.length == 0) {
-            if (clazz.isRecord()) {
-                constructors = clazz.getDeclaredConstructors();
-            } else {
-                throw new IllegalArgumentException("Класс " + clazz.getName() + " не имеет конструкторов");
-            }
+            throw new IllegalArgumentException("Класс " + clazz.getName() + " не имеет конструкторов");
         }
 
         Constructor<?> maxParametersConstructor = constructors[0];
