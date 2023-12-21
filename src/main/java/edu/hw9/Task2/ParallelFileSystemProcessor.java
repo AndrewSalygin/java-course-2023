@@ -8,7 +8,7 @@ import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 import java.util.function.Predicate;
 
-public class ParallelFileSystemProcessor {
+public final class ParallelFileSystemProcessor {
     private ParallelFileSystemProcessor() {}
 
     public static List<Path> findDirectoriesWithManyFiles(String rootPath, int threshold) {
